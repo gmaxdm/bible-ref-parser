@@ -83,7 +83,8 @@ class RefBook:
 
     def __eq__(self, other):
         if isinstance(other, RefBook):
-            res = self.book == other.book and len(self.chapters) == len(other.chapters)
+            res = (self.book == other.book and
+                   len(self.chapters) == len(other.chapters))
             if res:
                 for i, ch in enumerate(self.chapters):
                     res = res and ch == other.chapters[i]
@@ -122,7 +123,11 @@ class RefBook:
                 ls = _m.group(1)
                 le = _m.group(2)
                 self.chapters.append(
-                    {"chapter__num": chapter, "num__gte": int(ls), "num__lte": int(le)}
+                    {
+                        "chapter__num": chapter,
+                        "num__gte": int(ls),
+                        "num__lte": int(le)
+                    }
                 )
             else:
                 # line is a single int:
@@ -131,25 +136,28 @@ class RefBook:
                     ln = int(_m.group(1))
                     _num = "num"
                     if _num_postfix:
-                        if i == _arr_len - 1 and range_start or i == 0 and range_end:
+                        if (i == _arr_len - 1 and range_start or
+                            i == 0 and range_end):
                             _num += _num_postfix
                             _num_postfix = ""
                     self.chapters.append(
                         {"chapter__num": chapter, _num: ln}
                     )
                 else:
-                    print("[ERROR]: Can't parse chapter lines: {}".format(_lines))
+                    print("[ERROR]: Can't parse chapter lines: {}"
+                          .format(_lines))
                     continue
 
     def parse_chapters(self, line):
         """Chapters are presented by sequence of
-        latin numbers with line sequences separated by ';'
+        latin numbers with line sequences separated by ';'.
+        To keep spaces for endpos calculating chapter pattern
+        should not be stripped.
         """
         self.chapters_query = line
         endpos = line.count(";")
-        for raw in line.split(";"):
-            chapter = raw.strip()
-            if not chapter:
+        for chapter in line.split(";"):
+            if not chapter.strip():
                 continue
 
             m = RE_CHAPTER.search(chapter)
@@ -187,7 +195,8 @@ class MatchBook:
 
     def __eq__(self, other):
         if isinstance(other, MatchBook):
-            return (self.start == other.start and self.endpos == other.endpos and
+            return (self.start == other.start and
+                    self.endpos == other.endpos and
                     self.book == other.book)
         return False
 
