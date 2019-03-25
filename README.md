@@ -11,24 +11,24 @@ String reference is presented as a Short Title of a Book with one or more chapte
 Just pass a line to a parser:
 
 ```python
-    from ref_parser import RefParser
-  
-    line = "Солом. IV, 7, 16-17, 19-20;V, 1-7."
-  
-    parser = RefParser(line)
-  
-    for m in parser.refs:
-        print(m.match)
-        print(m.book)
+from ref_parser import RefParser
+
+line = "Солом. IV, 7, 16-17, 19-20;V, 1-7."
+
+parser = RefParser(line)
+
+for m in parser.refs:
+    print(m.match)
+    print(m.book)
 ```
 
 or you may use it to collect refs from a lot of lines:
 
 ```python
-    parser = RefParser()
+parser = RefParser()
     
-    for line in lines:
-        parser.parse(line)
+for line in lines:
+    parser.parse(line)
 ```
 
 #### RefParser.refs
@@ -55,16 +55,16 @@ where `chapter__num` is a number of a chapter, `num__gte` and `num__lte` are the
 ### Example
 
 ```python
-    line = "Солом. IV, 7, 16-17, 19-20;V, 1-7."
-    parser = RefParser(line)
-    book = parser.refs[0].book
-    print(book.book)
-    # Солом
-    print(book.chapters)
-    # [   {'chapter__num': 4, 'num': 7},
-    #     {'chapter__num': 4, 'num__gte': 16, 'num__lte': 17},
-    #     {'chapter__num': 4, 'num__gte': 19, 'num__lte': 20},
-    #     {'chapter__num': 5, 'num__gte': 1, 'num__lte': 7}]
+line = "Солом. IV, 7, 16-17, 19-20;V, 1-7."
+parser = RefParser(line)
+book = parser.refs[0].book
+print(book.book)
+# Солом
+print(book.chapters)
+# [   {'chapter__num': 4, 'num': 7},
+#     {'chapter__num': 4, 'num__gte': 16, 'num__lte': 17},
+#     {'chapter__num': 4, 'num__gte': 19, 'num__lte': 20},
+#     {'chapter__num': 5, 'num__gte': 1, 'num__lte': 7}]
 ```
 
 Here you can read the above quote of Solomon book: [Солом. IV, 7, 16-17, 19-20;V, 1-7](https://st-gospel.ru/bible/lines/?b=Solom&r=IV%2C%207%2C%2016%E2%80%9317%2C%2019%E2%80%9320%3BV%2C%201%E2%80%937)
