@@ -1,5 +1,5 @@
 # bible-ref-parser
-Parsing of a string reference to a Bible text lines (Russian)
+Parsing of a string reference to Bible text lines (Russian)
 
 String reference is presented as a Short Title of a Book with one or more chapters which are written in upper latin letters with a range or separate arabic numbers of Bible lines. All chapters are splitted by ';'. Lines splitted by ','.
 
